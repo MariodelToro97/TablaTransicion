@@ -133,19 +133,20 @@ public class Principal extends javax.swing.JFrame {
         matrizTransicion[18][6] = 20;
         matrizTransicion[18][7] = 19;
 
-        matrizTransicion[19][0] = 20;
-        matrizTransicion[19][1] = 20;
-        matrizTransicion[19][2] = 20;
-        matrizTransicion[19][3] = 20;
-        matrizTransicion[19][4] = 20;
-        matrizTransicion[19][5] = 20;
-        matrizTransicion[19][6] = 20;
-        matrizTransicion[19][7] = 20;
-        matrizTransicion[19][8] = 20;
-        matrizTransicion[19][9] = 20;
-        matrizTransicion[19][10] = 20;
-        matrizTransicion[19][11] = 20;
-        matrizTransicion[19][12] = 20;
+        matrizTransicion[19][0] = 19;
+        matrizTransicion[19][1] = 19;
+        matrizTransicion[19][2] = 19;
+        matrizTransicion[19][3] = 19;
+        matrizTransicion[19][4] = 19;
+        matrizTransicion[19][5] = 19;
+        matrizTransicion[19][6] = 19;
+        matrizTransicion[19][7] = 19;
+        matrizTransicion[19][8] = 19;
+        matrizTransicion[19][9] = 19;
+        matrizTransicion[19][10] = 19;
+        matrizTransicion[19][11] = 19;
+        matrizTransicion[19][12] = 19;
+        matrizTransicion[19][13] = 19;
         matrizTransicion[19][14] = 99;
 
         matrizTransicion[20][0] = 20;
@@ -346,7 +347,7 @@ public class Principal extends javax.swing.JFrame {
         Limpiar.setBackground(new java.awt.Color(255, 255, 102));
         Limpiar.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         Limpiar.setText("Limpiar");
-        Limpiar.setToolTipText("Borrará lo que escribió en el espacio");
+        Limpiar.setToolTipText("Borrará el código escrito así como la tabla de tokens");
         Limpiar.setEnabled(false);
         Limpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -393,6 +394,7 @@ public class Principal extends javax.swing.JFrame {
         Guardar.setBackground(new java.awt.Color(153, 255, 204));
         Guardar.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         Guardar.setText("Guardar");
+        Guardar.setToolTipText("Guarda el código creado en el espacio");
         Guardar.setEnabled(false);
         Guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -408,6 +410,7 @@ public class Principal extends javax.swing.JFrame {
                 "Lexema", "Token"
             }
         ));
+        Tab_lexico.setToolTipText("Tabla de los Lexemas que aparecen en el código y el Token que representa");
         jScrollPane3.setViewportView(Tab_lexico);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -434,74 +437,84 @@ public class Principal extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(Obtener, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel6)
                         .addGap(37, 37, 37))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(182, 182, 182)
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 631, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(229, 229, 229)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                            .addComponent(jLabel11)
-                                            .addGap(44, 44, 44))
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                            .addComponent(jLabel10)
-                                            .addGap(29, 29, 29)))
-                                    .addComponent(jLabel7)))
+                                .addComponent(jScrollPane1)
+                                .addGap(18, 18, 18))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(104, 104, 104)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Abrir, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(Limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(183, 183, 183)
+                                .addComponent(Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(32, 32, 32)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(Abrir, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(117, 117, 117))))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 631, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 687, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(35, 35, 35)
-                                .addComponent(Obtener, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(101, 101, 101)
-                                .addComponent(Limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(113, 113, 113)
-                                .addComponent(Guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(38, 38, 38)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 20, Short.MAX_VALUE))))
+                                .addGap(96, 96, 96)
+                                .addComponent(jLabel10))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(128, 128, 128)
+                                .addComponent(jLabel11))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(77, 77, 77)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(101, 101, 101)
+                .addComponent(jLabel7)
+                .addContainerGap(606, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(307, 307, 307)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(5, 5, 5)
                 .addComponent(jLabel4)
-                .addGap(3, 3, 3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel11)
-                .addGap(13, 13, 13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel9)
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Guardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(Limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Obtener, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Abrir, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Obtener, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Guardar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Abrir, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
                 .addComponent(jButton3)
-                .addGap(12, 12, 12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
                     .addComponent(jLabel16))
@@ -576,10 +589,10 @@ public class Principal extends javax.swing.JFrame {
         return matrizTransicion[estado][columna];
     }
 
-    public void llenadoTablaTokens(Object[] fila, String palabra, DefaultTableModel modelo) {
+    public void llenadoTablaTokens(Object[] fila, String palabra, DefaultTableModel modelo, String token) {
         //Método que llenará la tabla de Tokens
         fila[0] = palabra; //valor de la columna lexema de la tabla
-        fila[1] = "ERROR"; //valor de la columna token de la tabla
+        fila[1] = token; //valor de la columna token de la tabla
 
         modelo.addRow(fila); //Añadido de fila en el modelo auxiliar
         this.Tab_lexico.setModel(modelo); //Colocación del modelo en la tabla original visible en la interfaz
@@ -589,20 +602,27 @@ public class Principal extends javax.swing.JFrame {
         //Este método agrega un espacio despues de cierta secuencia de caracteres para evitar errores en la ejecución y compilación
         String codigo, espacio = "", caracter;
 
-        codigo = Texto.getText();
+        if (Texto.getText().length() == 1) {
+            espacio = Texto.getText();
+            espacio += " ";
 
-        for (int i = 0; i < codigo.length() - 1; i++) {
-            caracter = Character.toString(codigo.charAt(i));
-            if ((!caracter.equalsIgnoreCase(" ") && Character.toString(codigo.charAt(i + 1)).equalsIgnoreCase("\t")) || (!caracter.equalsIgnoreCase(" ") && Character.toString(codigo.charAt(i + 1)).equalsIgnoreCase("\n"))) {
-                espacio += caracter + " ";
+        } else {
+            codigo = Texto.getText();
 
-            } else {
+            for (int i = 0; i < codigo.length() - 1; i++) {
+                caracter = Character.toString(codigo.charAt(i));
+                if ((!caracter.equalsIgnoreCase(" ") && Character.toString(codigo.charAt(i + 1)).equalsIgnoreCase("\t")) || (!caracter.equalsIgnoreCase(" ") && Character.toString(codigo.charAt(i + 1)).equalsIgnoreCase("\n"))) {
+                    espacio += caracter + " ";
 
-                if (i == (codigo.length() - 2)) {
-                    espacio += caracter;
-                    espacio += Character.toString(codigo.charAt(codigo.length() - 1));
                 } else {
-                    espacio += caracter;
+
+                    if (i == (codigo.length() - 2)) {
+                        espacio += caracter;
+                        espacio += Character.toString(codigo.charAt(codigo.length() - 1));
+                        espacio += " ";
+                    } else {
+                        espacio += caracter;
+                    }
                 }
             }
         }
@@ -610,11 +630,30 @@ public class Principal extends javax.swing.JFrame {
         Texto.setText(espacio);
     }
 
+    public String obtenerToken(int valor) {
+        //Método que obtiene el token de la matriz de estados finales
+        String token = "";
+        boolean encontrado = false;
+
+        for (int i = 0; i < 17; i++) {
+            if (this.estadoFinal[i][0].equalsIgnoreCase(Integer.toString(valor))) {
+                token = estadoFinal[i][1];
+                encontrado = true;
+                break;
+            }
+        }
+
+        if (!encontrado) {
+            token = "ERROR";
+        }
+        return token;
+    }
+
     private void ObtenerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ObtenerActionPerformed
         // Método que se deesencadena tras pulsar el boton de Obtener de la interfaz principal        
-        String cadena = "", mostrar = "", palabra = "";
-        int posicion = -1, estado, columna, valor;
-        boolean error, salir, impresion = false;
+        String cadena = "", palabra = "", token = "";
+        int posicion = -1, estado, columna, valor = 0;
+        boolean error = false, salir, impresion = false;
 
         agregadoEspacio(); //Se le llama al método para crear los espacios respectivos despues de cierta secuencia de caracteres
 
@@ -627,7 +666,7 @@ public class Principal extends javax.swing.JFrame {
 
         try {
             do {
-                mostrar = ""; //Reinicialización para chequeo de caracteres al estado inicial
+                //Reinicialización para chequeo de caracteres al estado inicial
                 estado = 0;
                 error = false;
                 palabra = "";
@@ -636,14 +675,14 @@ public class Principal extends javax.swing.JFrame {
                     salir = false;
                     posicion++;
                     cadena = Character.toString(Texto.getText().charAt(posicion));
-                    System.out.println(cadena);
 
                     if (cadena.equalsIgnoreCase("\t") || cadena.equalsIgnoreCase("\n")) {
                         if (posicion != 0) {
                             if (!cadena.equalsIgnoreCase(" ") && !cadena.equalsIgnoreCase("\t") && !cadena.equalsIgnoreCase("\n") && !impresion) { //Evita que se guarden en la tabla de tokens espacios en blanco                                
-                                llenadoTablaTokens(fila, palabra, modelo); //Llamado al método para llenar la tabla de Tokens
+                                token = this.obtenerToken(valor);
+                                llenadoTablaTokens(fila, palabra, modelo, token); //Llamado al método para llenar la tabla de Tokens
                             }
-                            mostrar = ""; //Reinicialización para chequeo de caracteres al estado inicial
+                            //Reinicialización para chequeo de caracteres al estado inicial
                             estado = 0;
                             error = false;
                             palabra = "";
@@ -666,7 +705,7 @@ public class Principal extends javax.swing.JFrame {
                         } else if (cadena.equalsIgnoreCase(",")) {
                             cadena = ";";
                         } else if (cadena.equalsIgnoreCase("}") || cadena.equalsIgnoreCase("[") || cadena.equalsIgnoreCase("]") || cadena.equalsIgnoreCase("(") || cadena.equalsIgnoreCase(")") || cadena.equalsIgnoreCase("{")) {
-                            cadena = "{";
+                            cadena = Character.toString('"');
                         } else if (cadena.equalsIgnoreCase("\t")) {
                             cadena = " ";
                         }
@@ -676,22 +715,22 @@ public class Principal extends javax.swing.JFrame {
                         if (columna != -1) { //Entra si existe el caracter en el alfabeto
                             valor = estado;
                             estado = tablaTransicion(estado, columna); //Obtiene el cruce de la matriz de transición
-
-                            if (estado == -1) { //Entra si NO existe camino en el Autómata
-                                mostrar += "\n[" + valor + "][" + cadena + "] --> \nCamino no encontrado dentro del Autómata";
+                            System.out.println(valor);
+                            
+                            if (estado == -1) { //Entra si NO existe camino en el Autómata                                
                                 salir = false;
-
+                                error = false;
                                 do {
                                     palabra += Character.toString(Texto.getText().charAt(posicion));
                                     posicion++;
                                 } while (!Character.toString(Texto.getText().charAt(posicion)).equalsIgnoreCase(" "));
 
                                 if (!palabra.equalsIgnoreCase(" ") && !palabra.equalsIgnoreCase("\t") && !palabra.equalsIgnoreCase("\n")) { //Evita que se guarden en la tabla de tokens espacios en blanco
-                                    llenadoTablaTokens(fila, palabra, modelo); //Llamado al método para llenar la tabla de Tokens
+                                    error = true;
+                                    llenadoTablaTokens(fila, palabra, modelo, "SECUENCIA INCORRECTA"); //Llamado al método para llenar la tabla de Tokens
                                 }
 
-                            } else { //Entra si existe camino en el Autómata
-                                mostrar += "\n[" + valor + "][" + cadena + "] --> " + estado;
+                            } else { //Entra si existe camino en el Autómata                                
                                 salir = true;
                                 palabra += Character.toString(Texto.getText().charAt(posicion));
                             }
@@ -701,14 +740,14 @@ public class Principal extends javax.swing.JFrame {
                                     posicion++;
                                 }
 
-                                if (!palabra.equalsIgnoreCase(" ") && !palabra.equalsIgnoreCase("\t") && !palabra.equalsIgnoreCase("\n")) { //Evita que se guarden en la tabla de tokens espacios en blanco
-                                    llenadoTablaTokens(fila, palabra, modelo); //Llamado al método para llenar la tabla de Tokens
+                                if (!palabra.equalsIgnoreCase(" ") && !palabra.equalsIgnoreCase("\t") && !palabra.equalsIgnoreCase("\n") && !error) { //Evita que se guarden en la tabla de tokens espacios en blanco
+                                    token = this.obtenerToken(valor);
+                                    llenadoTablaTokens(fila, palabra, modelo, token); //Llamado al método para llenar la tabla de Tokens
                                 }
                                 salir = false;
                             }
 
-                        } else { //Entra si NO existe el caracter en el alfabeto
-                            mostrar += "\n[" + estado + "][" + cadena + "] --> \nCaracter no encontrado en alfabeto";
+                        } else { //Entra si NO existe el caracter en el alfabeto                            
 
                             do { //Llega a la siguiente palabra si es que existe                            
                                 palabra += Character.toString(Texto.getText().charAt(posicion));
@@ -716,7 +755,8 @@ public class Principal extends javax.swing.JFrame {
                             } while (!Character.toString(Texto.getText().charAt(posicion)).equalsIgnoreCase(" "));
 
                             if (!palabra.equalsIgnoreCase(" ") && !palabra.equalsIgnoreCase("\t") && !palabra.equalsIgnoreCase("\n")) { //Evita que se guarden en la tabla de tokens espacios en blanco
-                                llenadoTablaTokens(fila, palabra, modelo); //Llamado al método para llenar la tabla de Tokens
+                                error = true;
+                                llenadoTablaTokens(fila, palabra, modelo, "CARACTER NO ENCONTRADO"); //Llamado al método para llenar la tabla de Tokens
                             }
 
                             salir = false;
@@ -725,23 +765,17 @@ public class Principal extends javax.swing.JFrame {
                     }
                 } while (salir);
 
-                JOptionPane.showMessageDialog(null, mostrar, "Resultado", JOptionPane.INFORMATION_MESSAGE);
+                //JOptionPane.showMessageDialog(null, mostrar, "Resultado", JOptionPane.INFORMATION_MESSAGE);
             } while (cadena.equalsIgnoreCase(" "));
 
         } catch (StringIndexOutOfBoundsException e) {
-            error = true;
-
             //Pasa el foco al textfield del código
             Texto.requestFocus();
 
-            if (!palabra.equalsIgnoreCase(" ") && !palabra.equalsIgnoreCase("\t") && !palabra.equalsIgnoreCase("\n") && !impresion) { //Evita que se guarden en la tabla de tokens espacios en blanco
-                llenadoTablaTokens(fila, palabra, modelo); //Llamado al método para llenar la tabla de Tokens                
+            if (!palabra.equalsIgnoreCase(" ") && !palabra.equalsIgnoreCase("\t") && !palabra.equalsIgnoreCase("\n") && !impresion && !error) { //Evita que se guarden en la tabla de tokens espacios en blanco
+                token = this.obtenerToken(valor);
+                llenadoTablaTokens(fila, palabra, modelo, token); //Llamado al método para llenar la tabla de Tokens                
             }
-            System.out.println("CATCH eof");
-        }
-
-        if (error) {
-            JOptionPane.showMessageDialog(null, mostrar, "Resultado", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_ObtenerActionPerformed
 
