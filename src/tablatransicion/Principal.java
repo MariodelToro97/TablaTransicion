@@ -56,7 +56,8 @@ public class Principal extends javax.swing.JFrame {
         matrizTransicion[0][4] = 6;
         matrizTransicion[0][5] = 8;
         matrizTransicion[0][6] = 7;
-        matrizTransicion[0][8] = 18;
+        matrizTransicion[0][7] = 18;
+        matrizTransicion[0][8] = 12;
         matrizTransicion[0][9] = 10;
         matrizTransicion[0][10] = 9;
         matrizTransicion[0][11] = 16;
@@ -584,11 +585,38 @@ public class Principal extends javax.swing.JFrame {
         this.Tab_lexico.setModel(modelo); //Colocación del modelo en la tabla original visible en la interfaz
     }
 
+    public void agregadoEspacio() {
+        //Este método agrega un espacio despues de cierta secuencia de caracteres para evitar errores en la ejecución y compilación
+        String codigo, espacio = "", caracter;
+
+        codigo = Texto.getText();
+
+        for (int i = 0; i < codigo.length() - 1; i++) {
+            caracter = Character.toString(codigo.charAt(i));
+            if ((!caracter.equalsIgnoreCase(" ") && Character.toString(codigo.charAt(i + 1)).equalsIgnoreCase("\t")) || (!caracter.equalsIgnoreCase(" ") && Character.toString(codigo.charAt(i + 1)).equalsIgnoreCase("\n"))) {
+                espacio += caracter + " ";
+
+            } else {
+
+                if (i == (codigo.length() - 2)) {
+                    espacio += caracter;
+                    espacio += Character.toString(codigo.charAt(codigo.length() - 1));
+                } else {
+                    espacio += caracter;
+                }
+            }
+        }
+
+        Texto.setText(espacio);
+    }
+
     private void ObtenerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ObtenerActionPerformed
         // Método que se deesencadena tras pulsar el boton de Obtener de la interfaz principal        
-        String cadena, mostrar = "", palabra = "";
+        String cadena = "", mostrar = "", palabra = "";
         int posicion = -1, estado, columna, valor;
-        boolean error, salir;
+        boolean error, salir, impresion = false;
+
+        agregadoEspacio(); //Se le llama al método para crear los espacios respectivos despues de cierta secuencia de caracteres
 
         //Pasos para reiniciar la Tabla 
         DefaultTableModel modelo = new DefaultTableModel();
@@ -603,16 +631,32 @@ public class Principal extends javax.swing.JFrame {
                 estado = 0;
                 error = false;
                 palabra = "";
+
                 do {
                     salir = false;
                     posicion++;
                     cadena = Character.toString(Texto.getText().charAt(posicion));
-                    System.out.println(posicion);
+                    System.out.println(cadena);
 
                     if (cadena.equalsIgnoreCase("\t") || cadena.equalsIgnoreCase("\n")) {
-                        
+                        if (posicion != 0) {
+                            if (!cadena.equalsIgnoreCase(" ") && !cadena.equalsIgnoreCase("\t") && !cadena.equalsIgnoreCase("\n") && !impresion) { //Evita que se guarden en la tabla de tokens espacios en blanco                                
+                                llenadoTablaTokens(fila, palabra, modelo); //Llamado al método para llenar la tabla de Tokens
+                            }
+                            mostrar = ""; //Reinicialización para chequeo de caracteres al estado inicial
+                            estado = 0;
+                            error = false;
+                            palabra = "";
+                        }
+
+                        while (Character.toString(Texto.getText().charAt(posicion)).equalsIgnoreCase(" ")) {
+                            posicion++;
+                        }
+                        salir = true;
+                        impresion = true;
+
                     } else {
-                        System.out.println("ENTRO");
+                        impresion = false;
                         if (Character.isLetterOrDigit(Texto.getText().charAt(posicion))) { //Checa si el caracter es letra o digito
                             cadena = obtenerCaracter(posicion);
                         } else if (cadena.equalsIgnoreCase("$")) {
@@ -642,7 +686,9 @@ public class Principal extends javax.swing.JFrame {
                                     posicion++;
                                 } while (!Character.toString(Texto.getText().charAt(posicion)).equalsIgnoreCase(" "));
 
-                                llenadoTablaTokens(fila, palabra, modelo); //Llamado al método para llenar la tabla de Tokens
+                                if (!palabra.equalsIgnoreCase(" ") && !palabra.equalsIgnoreCase("\t") && !palabra.equalsIgnoreCase("\n")) { //Evita que se guarden en la tabla de tokens espacios en blanco
+                                    llenadoTablaTokens(fila, palabra, modelo); //Llamado al método para llenar la tabla de Tokens
+                                }
 
                             } else { //Entra si existe camino en el Autómata
                                 mostrar += "\n[" + valor + "][" + cadena + "] --> " + estado;
@@ -651,7 +697,13 @@ public class Principal extends javax.swing.JFrame {
                             }
 
                             if (" ".equals(cadena) || estado == -1 || estado == 99 || "\t".equals(cadena)) { //Entra si terminó de alguna forma con esa palabra
-                                llenadoTablaTokens(fila, palabra, modelo); //Llamado al método para llenar la tabla de Tokens
+                                while (Character.toString(Texto.getText().charAt(posicion + 1)).equalsIgnoreCase(" ")) { //Elimina si hay varios espacios despues de una 
+                                    posicion++;
+                                }
+
+                                if (!palabra.equalsIgnoreCase(" ") && !palabra.equalsIgnoreCase("\t") && !palabra.equalsIgnoreCase("\n")) { //Evita que se guarden en la tabla de tokens espacios en blanco
+                                    llenadoTablaTokens(fila, palabra, modelo); //Llamado al método para llenar la tabla de Tokens
+                                }
                                 salir = false;
                             }
 
@@ -663,17 +715,17 @@ public class Principal extends javax.swing.JFrame {
                                 posicion++;
                             } while (!Character.toString(Texto.getText().charAt(posicion)).equalsIgnoreCase(" "));
 
-                            llenadoTablaTokens(fila, palabra, modelo); //Llamado al método para llenar la tabla de Tokens
+                            if (!palabra.equalsIgnoreCase(" ") && !palabra.equalsIgnoreCase("\t") && !palabra.equalsIgnoreCase("\n")) { //Evita que se guarden en la tabla de tokens espacios en blanco
+                                llenadoTablaTokens(fila, palabra, modelo); //Llamado al método para llenar la tabla de Tokens
+                            }
 
                             salir = false;
                         }
-
                         cadena = Character.toString(Texto.getText().charAt(posicion));
                     }
                 } while (salir);
 
                 JOptionPane.showMessageDialog(null, mostrar, "Resultado", JOptionPane.INFORMATION_MESSAGE);
-                System.out.println(cadena);
             } while (cadena.equalsIgnoreCase(" "));
 
         } catch (StringIndexOutOfBoundsException e) {
@@ -682,7 +734,9 @@ public class Principal extends javax.swing.JFrame {
             //Pasa el foco al textfield del código
             Texto.requestFocus();
 
-            llenadoTablaTokens(fila, palabra, modelo); //Llamado al método para llenar la tabla de Tokens
+            if (!palabra.equalsIgnoreCase(" ") && !palabra.equalsIgnoreCase("\t") && !palabra.equalsIgnoreCase("\n") && !impresion) { //Evita que se guarden en la tabla de tokens espacios en blanco
+                llenadoTablaTokens(fila, palabra, modelo); //Llamado al método para llenar la tabla de Tokens                
+            }
             System.out.println("CATCH eof");
         }
 
