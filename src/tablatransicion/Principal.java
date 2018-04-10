@@ -90,6 +90,7 @@ public class Principal extends javax.swing.JFrame {
         matrizTransicion[5][14] = 99;
 
         matrizTransicion[6][4] = 7;
+        matrizTransicion[6][8] = 7;
         matrizTransicion[6][13] = 99;
         matrizTransicion[6][14] = 99;
 
@@ -97,6 +98,7 @@ public class Principal extends javax.swing.JFrame {
         matrizTransicion[7][14] = 99;
 
         matrizTransicion[8][5] = 7;
+        matrizTransicion[8][8] = 7;
         matrizTransicion[8][13] = 99;
         matrizTransicion[8][14] = 99;
 
@@ -132,6 +134,8 @@ public class Principal extends javax.swing.JFrame {
 
         matrizTransicion[18][6] = 20;
         matrizTransicion[18][7] = 19;
+        matrizTransicion[18][13] = 99;
+        matrizTransicion[18][14] = 99;
 
         matrizTransicion[19][0] = 19;
         matrizTransicion[19][1] = 19;
@@ -162,6 +166,8 @@ public class Principal extends javax.swing.JFrame {
         matrizTransicion[20][10] = 20;
         matrizTransicion[20][11] = 20;
         matrizTransicion[20][12] = 20;
+        matrizTransicion[20][13] = 20;
+        matrizTransicion[20][14] = 20;
 
         matrizTransicion[21][0] = 20;
         matrizTransicion[21][1] = 20;
@@ -176,6 +182,8 @@ public class Principal extends javax.swing.JFrame {
         matrizTransicion[21][10] = 20;
         matrizTransicion[21][11] = 20;
         matrizTransicion[21][12] = 20;
+        matrizTransicion[21][13] = 20;
+        matrizTransicion[21][14] = 20;
 
         matrizTransicion[22][13] = 99;
         matrizTransicion[22][14] = 99;
@@ -195,7 +203,7 @@ public class Principal extends javax.swing.JFrame {
         alfabeto[11] = ';'; //; ,
         alfabeto[12] = '"'; // { } [ ] ( ) "
         alfabeto[13] = ' '; //\t
-        alfabeto[14] = '\n';
+        alfabeto[14] = '`';//\n
 
         //Inserción de valores finales a la matriz de estados finales
         estadoFinal[0][0] = "1";
@@ -549,7 +557,7 @@ public class Principal extends javax.swing.JFrame {
         //Pasa el foco al textfield del código
         Texto.requestFocus();
 
-        //Pasos para reiniciar la Tabla 
+        //Pasos para reiniciar la Tabla
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Lexema");
         modelo.addColumn("Token");
@@ -649,11 +657,43 @@ public class Principal extends javax.swing.JFrame {
         return token;
     }
 
+    public String conversionCaracter(String cadena, int posicion) {
+        //Método para convertir los caracteres al que se puede leer en el alfabeto
+        if (Character.isLetterOrDigit(Texto.getText().charAt(posicion))) { //Checa si el caracter es letra o digito
+            cadena = obtenerCaracter(posicion);
+        } else {
+            if (cadena.equalsIgnoreCase("$")) {
+                cadena = "_";
+            } else {
+                if (cadena.equalsIgnoreCase("<")) {
+                    cadena = ">";
+                } else {
+                    if (cadena.equalsIgnoreCase(",")) {
+                        cadena = ";";
+                    } else {
+                        if (cadena.equalsIgnoreCase("}") || cadena.equalsIgnoreCase("[") || cadena.equalsIgnoreCase("]") || cadena.equalsIgnoreCase("(") || cadena.equalsIgnoreCase(")") || cadena.equalsIgnoreCase("{")) {
+                            cadena = Character.toString('"');
+                        } else {
+                            if (Character.toString(Texto.getText().charAt(posicion)).equalsIgnoreCase("\t")) {
+                                cadena = " ";
+                            } else {
+                                if (Character.toString(Texto.getText().charAt(posicion)).equalsIgnoreCase("\n")) {
+                                    cadena = "`";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return cadena;
+    }
+
     private void ObtenerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ObtenerActionPerformed
         // Método que se deesencadena tras pulsar el boton de Obtener de la interfaz principal        
         String cadena = "", palabra = "", token = "";
         int posicion = -1, estado, columna, valor = 0;
-        boolean error = false, salir, impresion = false;
+        boolean error = false, salir, impresion = false, comentario = false;
 
         agregadoEspacio(); //Se le llama al método para crear los espacios respectivos despues de cierta secuencia de caracteres
 
@@ -669,6 +709,7 @@ public class Principal extends javax.swing.JFrame {
                 //Reinicialización para chequeo de caracteres al estado inicial
                 estado = 0;
                 error = false;
+                comentario = false;
                 palabra = "";
 
                 do {
@@ -696,27 +737,15 @@ public class Principal extends javax.swing.JFrame {
 
                     } else {
                         impresion = false;
-                        if (Character.isLetterOrDigit(Texto.getText().charAt(posicion))) { //Checa si el caracter es letra o digito
-                            cadena = obtenerCaracter(posicion);
-                        } else if (cadena.equalsIgnoreCase("$")) {
-                            cadena = "_";
-                        } else if (cadena.equalsIgnoreCase("<")) {
-                            cadena = ">";
-                        } else if (cadena.equalsIgnoreCase(",")) {
-                            cadena = ";";
-                        } else if (cadena.equalsIgnoreCase("}") || cadena.equalsIgnoreCase("[") || cadena.equalsIgnoreCase("]") || cadena.equalsIgnoreCase("(") || cadena.equalsIgnoreCase(")") || cadena.equalsIgnoreCase("{")) {
-                            cadena = Character.toString('"');
-                        } else if (cadena.equalsIgnoreCase("\t")) {
-                            cadena = " ";
-                        }
 
+                        cadena = conversionCaracter(cadena, posicion);
                         columna = obtenerColumna(cadena); //Ve si existe el caracter en el alfabeto
 
                         if (columna != -1) { //Entra si existe el caracter en el alfabeto
                             valor = estado;
                             estado = tablaTransicion(estado, columna); //Obtiene el cruce de la matriz de transición
-                            System.out.println(valor);
-                            
+                            System.out.println(estado);
+
                             if (estado == -1) { //Entra si NO existe camino en el Autómata                                
                                 salir = false;
                                 error = false;
@@ -730,9 +759,28 @@ public class Principal extends javax.swing.JFrame {
                                     llenadoTablaTokens(fila, palabra, modelo, "SECUENCIA INCORRECTA"); //Llamado al método para llenar la tabla de Tokens
                                 }
 
-                            } else { //Entra si existe camino en el Autómata                                
-                                salir = true;
-                                palabra += Character.toString(Texto.getText().charAt(posicion));
+                            } else { //Entra si existe camino en el Autómata
+                                if (estado == 19 || estado == 20) { //Entra si lo que se hará es un comentario
+                                    comentario = true;
+                                    switch (estado) {
+                                        case 19:                                            
+                                            while (!Character.toString(Texto.getText().charAt(posicion)).equalsIgnoreCase("\n")){
+                                                palabra += Character.toString(Texto.getText().charAt(posicion));
+                                                posicion++;
+                                            }
+                                            posicion = posicion - 1;
+                                            llenadoTablaTokens(fila, palabra, modelo, "COMENTARIO"); //Llamado al método para llenar la tabla de Tokens
+                                            break;
+
+                                        case 20:
+                                            break;
+                                    }
+                                    cadena = " ";
+                                    salir = false;
+                                } else {
+                                    salir = true;
+                                    palabra += Character.toString(Texto.getText().charAt(posicion));
+                                }
                             }
 
                             if (" ".equals(cadena) || estado == -1 || estado == 99 || "\t".equals(cadena)) { //Entra si terminó de alguna forma con esa palabra
@@ -740,7 +788,7 @@ public class Principal extends javax.swing.JFrame {
                                     posicion++;
                                 }
 
-                                if (!palabra.equalsIgnoreCase(" ") && !palabra.equalsIgnoreCase("\t") && !palabra.equalsIgnoreCase("\n") && !error) { //Evita que se guarden en la tabla de tokens espacios en blanco
+                                if (!palabra.equalsIgnoreCase(" ") && !palabra.equalsIgnoreCase("\t") && !palabra.equalsIgnoreCase("\n") && !error && !comentario) { //Evita que se guarden en la tabla de tokens espacios en blanco
                                     token = this.obtenerToken(valor);
                                     llenadoTablaTokens(fila, palabra, modelo, token); //Llamado al método para llenar la tabla de Tokens
                                 }
@@ -773,7 +821,12 @@ public class Principal extends javax.swing.JFrame {
             Texto.requestFocus();
 
             if (!palabra.equalsIgnoreCase(" ") && !palabra.equalsIgnoreCase("\t") && !palabra.equalsIgnoreCase("\n") && !impresion && !error) { //Evita que se guarden en la tabla de tokens espacios en blanco
-                token = this.obtenerToken(valor);
+                
+                if (!comentario) {
+                    token = this.obtenerToken(valor);
+                } else {
+                    token = "COMENTARIO";
+                }
                 llenadoTablaTokens(fila, palabra, modelo, token); //Llamado al método para llenar la tabla de Tokens                
             }
         }
