@@ -693,7 +693,7 @@ public class Principal extends javax.swing.JFrame {
         // Método que se deesencadena tras pulsar el boton de Obtener de la interfaz principal        
         String cadena = "", palabra = "", token = "";
         int posicion = -1, estado, columna, valor = 0;
-        boolean error = false, salir, impresion = false, comentario = false;
+        boolean error = false, salir, impresion = false, comentario = false, comentarioLargo = false;
 
         agregadoEspacio(); //Se le llama al método para crear los espacios respectivos despues de cierta secuencia de caracteres
 
@@ -710,6 +710,7 @@ public class Principal extends javax.swing.JFrame {
                 estado = 0;
                 error = false;
                 comentario = false;
+                comentarioLargo = false;
                 palabra = "";
 
                 do {
@@ -744,7 +745,6 @@ public class Principal extends javax.swing.JFrame {
                         if (columna != -1) { //Entra si existe el caracter en el alfabeto
                             valor = estado;
                             estado = tablaTransicion(estado, columna); //Obtiene el cruce de la matriz de transición
-                            System.out.println(estado);
 
                             if (estado == -1) { //Entra si NO existe camino en el Autómata                                
                                 salir = false;
@@ -763,19 +763,30 @@ public class Principal extends javax.swing.JFrame {
                                 if (estado == 19 || estado == 20) { //Entra si lo que se hará es un comentario
                                     comentario = true;
                                     switch (estado) {
-                                        case 19:                                            
-                                            while (!Character.toString(Texto.getText().charAt(posicion)).equalsIgnoreCase("\n")){
+                                        case 19: //Pequeño método para resolver el comentario de una sola línea                                         
+                                            while (!Character.toString(Texto.getText().charAt(posicion)).equalsIgnoreCase("\n")) {
                                                 palabra += Character.toString(Texto.getText().charAt(posicion));
                                                 posicion++;
                                             }
-                                            posicion = posicion - 1;
+                                            posicion--;
                                             llenadoTablaTokens(fila, palabra, modelo, "COMENTARIO"); //Llamado al método para llenar la tabla de Tokens
                                             break;
 
-                                        case 20:
+                                        case 20: //Método para resolver los comentarios  múltiples
+                                            comentarioLargo = true;
+                                            while (estado != 99) {
+                                                palabra += Character.toString(Texto.getText().charAt(posicion));
+                                                posicion++;
+                                                cadena = Character.toString(Texto.getText().charAt(posicion));
+
+                                                cadena = conversionCaracter(cadena, posicion); //Convierte valores en posibilidades de buscar en el alfabeto
+                                                columna = obtenerColumna(cadena); //Sabe si existe el caracter en el alfabeto
+                                                estado = tablaTransicion(estado, columna); //Obtiene el cruce de la matriz de transición
+                                            }
+                                            posicion--;
+                                            llenadoTablaTokens(fila, palabra, modelo, "COMENTARIO"); 
                                             break;
                                     }
-                                    cadena = " ";
                                     salir = false;
                                 } else {
                                     salir = true;
@@ -788,7 +799,7 @@ public class Principal extends javax.swing.JFrame {
                                     posicion++;
                                 }
 
-                                if (!palabra.equalsIgnoreCase(" ") && !palabra.equalsIgnoreCase("\t") && !palabra.equalsIgnoreCase("\n") && !error && !comentario) { //Evita que se guarden en la tabla de tokens espacios en blanco
+                                if (!palabra.equalsIgnoreCase(" ") && !palabra.equalsIgnoreCase("\t") && !palabra.equalsIgnoreCase("\n") && !error && !comentarioLargo && !comentario) { //Evita que se guarden en la tabla de tokens espacios en blanco
                                     token = this.obtenerToken(valor);
                                     llenadoTablaTokens(fila, palabra, modelo, token); //Llamado al método para llenar la tabla de Tokens
                                 }
@@ -806,7 +817,6 @@ public class Principal extends javax.swing.JFrame {
                                 error = true;
                                 llenadoTablaTokens(fila, palabra, modelo, "CARACTER NO ENCONTRADO"); //Llamado al método para llenar la tabla de Tokens
                             }
-
                             salir = false;
                         }
                         cadena = Character.toString(Texto.getText().charAt(posicion));
@@ -821,13 +831,16 @@ public class Principal extends javax.swing.JFrame {
             Texto.requestFocus();
 
             if (!palabra.equalsIgnoreCase(" ") && !palabra.equalsIgnoreCase("\t") && !palabra.equalsIgnoreCase("\n") && !impresion && !error) { //Evita que se guarden en la tabla de tokens espacios en blanco
-                
+
                 if (!comentario) {
                     token = this.obtenerToken(valor);
                 } else {
                     token = "COMENTARIO";
                 }
-                llenadoTablaTokens(fila, palabra, modelo, token); //Llamado al método para llenar la tabla de Tokens                
+                
+                if (!comentarioLargo) {
+                    llenadoTablaTokens(fila, palabra, modelo, token); //Llamado al método para llenar la tabla de Tokens    
+                }                            
             }
         }
     }//GEN-LAST:event_ObtenerActionPerformed
